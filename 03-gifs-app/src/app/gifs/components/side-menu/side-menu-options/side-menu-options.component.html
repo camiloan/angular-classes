@@ -1,0 +1,16 @@
+<ul class="space-y-2 font-medium">
+  @for (item of menuOptions; track item.route) {
+  <li>
+    <a [routerLink]="item.route" routerLinkActive="bg-blue-800"
+      class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+      <div>
+        <i [class]="item.icon"></i>
+      </div>
+      <div class="ml-3 flex flex-col">
+        <span class="text-lg font-bold leading-5 text-white">{{item.label}}</span>
+        <span class="text-sm text-white/50 hidden md:block">{{item.subLabel}}</span>
+      </div>
+    </a>
+  </li>
+  }
+</ul>
