@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { GifListItemComponent } from './gif-list-item/gif-list-item.component';
+import type { Gif } from '../../interfaces/git.interface';
 
 @Component({
   selector: 'gif-list',
@@ -9,6 +10,6 @@ import { GifListItemComponent } from './gif-list-item/gif-list-item.component';
 })
 export class GifListComponent {
 
-  gifs = input.required<string[]>();
+  gifs = input.required<Gif[]>();
 
 }
