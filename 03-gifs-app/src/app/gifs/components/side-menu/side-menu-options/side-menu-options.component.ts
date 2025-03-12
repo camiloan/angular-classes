@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { GifService } from 'src/app/gifs/services/gifs.service';
 
 interface SideMenuOption {
   icon: string;
@@ -29,4 +30,7 @@ export class SideMenuOptionsComponent {
       route: '/dashboard/search'
     }
   ]
+
+  gifService = inject(GifService);
+
 }

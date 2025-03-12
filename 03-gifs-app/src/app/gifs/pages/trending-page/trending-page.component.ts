@@ -26,5 +26,4 @@ export default class TrendingPageComponent {
 
 
   gifService = inject(GifService);
-/*   gifs = computed(() => this.gifService.trendingGifs);
- */}
+}
