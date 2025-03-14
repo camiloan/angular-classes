@@ -20,7 +20,7 @@ export class GifService {
   private http = inject(HttpClient);
 
   trendingGifs = signal<Gif[]>([]);
-  trendingGifsLoading = signal(true);
+  trendingGifsLoading = signal(false);
   private trendingPage = signal(0);
 
   trendingGifGroup = computed<Gif[][]>(() => {
@@ -44,8 +44,8 @@ export class GifService {
   })
 
   loadTrendingGifs() {
-
     if (this.trendingGifsLoading()) return;
+
 
     this.trendingGifsLoading.set(true);
 
