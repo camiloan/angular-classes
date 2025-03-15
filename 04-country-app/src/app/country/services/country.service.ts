@@ -26,4 +26,16 @@ export class CountryService {
     );
   }
 
+
+  searchByCountry(query: string) {
+    const url = `${API_URL}/name/${query.toLowerCase()}`;
+    return this.http.get<RESTCountry[]>(url).pipe(map((restCountries) =>
+      CountryMapper.mapRestCountryArrayToCountryArray(restCountries)
+    ),
+      catchError((error) => {
+        console.log('Error fetching countries', error);
+        return throwError(() => new Error(`No se encontró un país con esa consulta ${query}`));
+      }));
+  }
+
 }
