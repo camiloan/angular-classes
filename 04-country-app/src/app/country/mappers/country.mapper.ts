@@ -12,6 +12,8 @@ export class CountryMapper {
       // biome-ignore lint/complexity/useLiteralKeys: <explanation>
       name: restCountry.translations['spa'].common ?? 'No Spanish Name',
       population: restCountry.population,
+      region: restCountry.region,
+      subregion: restCountry.subregion,
     };
   }
 
