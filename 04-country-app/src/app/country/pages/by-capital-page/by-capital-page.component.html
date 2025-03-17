@@ -1,4 +1,4 @@
-<country-search-input placeholder="Buscar por capital de mi país" (value)="query.set($event)" />
+<country-search-input placeholder="Buscar por capital de mi país" (value)="query.set($event)" [debounceTime]="500" />
 
 
 @if (countryResource.error()) {
