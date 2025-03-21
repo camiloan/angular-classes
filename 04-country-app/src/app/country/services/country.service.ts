@@ -14,7 +14,7 @@ export class CountryService {
   private http = inject(HttpClient);
 
   private queryCacheCapital = new Map<string, Country[]>();
-
+  private queryCacheCountry = new Map<string, Country[]>();
 
 
   searchByCapital(query: string) {
@@ -34,10 +34,17 @@ export class CountryService {
 
 
   searchByCountry(query: string) {
+
     const url = `${API_URL}/name/${query.toLowerCase()}`;
+
+    if (this.queryCacheCountry.has(query)) {
+      return of(this.queryCacheCountry.get(query) ?? []).pipe(delay(2000));
+    }
+
     return this.http.get<RESTCountry[]>(url).pipe(map((restCountries) =>
       CountryMapper.mapRestCountryArrayToCountryArray(restCountries)
-    ), delay(2000),
+    ),
+      tap((countries) => this.queryCacheCountry.set(query, countries)), delay(2000),
       catchError((error) => {
         console.log('Error fetching countries', error);
         return throwError(() => new Error(`No se encontró un país con esa consulta ${query}`));
