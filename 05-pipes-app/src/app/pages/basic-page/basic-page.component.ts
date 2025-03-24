@@ -1,5 +1,6 @@
 import { DatePipe, LowerCasePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, LOCALE_ID, signal } from '@angular/core';
+import { type AvailableLocale, LocaleService } from '../../services/locale.service';
 
 @Component({
   selector: 'app-basic-page',
@@ -8,6 +9,8 @@ import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/cor
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class BasicPageComponent {
+  localeService = inject(LocaleService)
+  currentLocale = signal(inject(LOCALE_ID))
   nameLower = signal('camilo')
   nameUpper = signal('Camilo')
   fullName = signal('cAmIlO BoLaÑoS')
@@ -22,4 +25,10 @@ export default class BasicPageComponent {
       clearInterval(intervaL);
     });
   })
+
+  changeLocale(locale: AvailableLocale) {
+    this.localeService.changeLocale(locale)
+  }
+
+
 }

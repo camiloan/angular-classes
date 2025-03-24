@@ -78,9 +78,9 @@
 <div class="divider"></div>
 <div class="flex flex-row gap-2">
   <h1 class="text-2xl font-bold">Locale Actual:
-    <span class="badge badge-secondary">ES</span>
+    <span class="badge badge-secondary">{{currentLocale()}}</span>
   </h1>
-  <button class="btn btn-primary">Changer en français</button>
-  <button class="btn btn-primary">Change to English</button>
-  <button class="btn btn-primary">Cambiar a español</button>
+  <button class="btn btn-primary" (click)="changeLocale('fr')">Changer en français</button>
+  <button class="btn btn-primary" (click)="changeLocale('en')">Change to English</button>
+  <button class="btn btn-primary" (click)="changeLocale('es')">Cambiar a español</button>
 </div>
