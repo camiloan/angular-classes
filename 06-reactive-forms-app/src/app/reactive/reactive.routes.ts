@@ -3,7 +3,7 @@ import { DynamicPageComponent } from "./pages/dynamic-page/dynamic-page.componen
 import { BasicPageComponent } from "./pages/basic-page/basic-page.component";
 import { SwitchesPageComponent } from "./pages/switches-page/switches-page.component";
 
-export const authRoutes: Routes = [
+export const reactiveRoutes: Routes = [
 
   {
     path: '',

@@ -1,1 +1,57 @@
-<p>dynamic-page works!</p>,
+<h2 class="text-2xl font-bold">Reactivos: <small class="text-base font-normal">Dinámicos</small></h2>
+<hr class="my-4">
+
+<form autocomplete="off" class="space-y-6">
+
+  <!-- Nombre -->
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">Nombre</span>
+    </label>
+    <input type="text" placeholder="Nombre de la persona" class="input input-bordered w-full" />
+    <span class="text-red-500 text-sm mt-1">error message</span>
+  </div>
+
+  <!-- Agregar Favorito -->
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">Agregar</span>
+    </label>
+    <div class="flex gap-2">
+      <input type="text" placeholder="Agregar favorito" class="input input-bordered flex-grow" />
+      <button class="btn btn-primary">Agregar favorito</button>
+    </div>
+  </div>
+
+  <!-- Lista de Juegos Favoritos -->
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">Favoritos</span>
+    </label>
+    <div class="space-y-2">
+      <div class="flex gap-2">
+        <input type="text" class="input input-bordered flex-grow" />
+        <button class="btn btn-error">Eliminar</button>
+      </div>
+      <span class="text-red-500 text-sm">Este campo es requerido</span>
+    </div>
+  </div>
+
+  <!-- Botón Guardar -->
+  <div class="flex justify-end">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+
+</form>
+
+<div class="mt-6 space-y-4">
+  <span class="font-bold">Valid</span>
+  <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+
+  <span class="font-bold">Value</span>
+  <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+
+  <span class="font-bold">Agregar Juego</span>
+  <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+</div>

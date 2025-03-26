@@ -1,1 +1,82 @@
-<p>register-page works!</p>,
+<h2 class="text-2xl font-bold">Validaciones Reactivas</h2>
+<hr class="my-4">
+
+<div class="space-y-6">
+  <form autocomplete="off" class="space-y-4">
+
+    <!-- Nombre -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Nombre y apellido</span>
+      </label>
+      <input type="text" placeholder="Nombre del usuario" class="input input-bordered w-full" />
+      <span class="text-red-500 text-sm mt-1">Debe de ser en formato de nombre y apellido</span>
+    </div>
+
+    <!-- Email -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Email</span>
+      </label>
+      <input type="email" placeholder="Email del usuario" class="input input-bordered w-full" />
+      <span class="text-red-500 text-sm mt-1">Mensaje de error del email</span>
+    </div>
+
+    <!-- Username -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Username</span>
+      </label>
+      <input type="text" placeholder="Nombre código del usuario" class="input input-bordered w-full" />
+      <span class="text-red-500 text-sm mt-1">El username no puede ser Strider</span>
+    </div>
+
+    <!-- Password -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Password</span>
+      </label>
+      <input type="password" placeholder="Password de su cuenta" class="input input-bordered w-full" />
+      <span class="text-red-500 text-sm mt-1">La contraseña debe de ser mayor de 6 caracteres.</span>
+    </div>
+
+    <!-- Confirmar Password -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Confirmar</span>
+      </label>
+      <input type="password" placeholder="Confirmar la contraseña" class="input input-bordered w-full" />
+      <span class="text-red-500 text-sm mt-1">Las contraseñas deben de ser iguales</span>
+    </div>
+
+    <!-- Botón Crear -->
+    <div class="flex justify-end">
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+
+  </form>
+</div>
+
+<!-- Información Adicional -->
+<div class="mt-8 space-y-4">
+  <h2 class="text-xl font-bold">Form Valid:</h2>
+  <h2 class="text-xl font-bold">Form Status:</h2>
+  <h2 class="text-xl font-bold">Form Pending:</h2>
+  <h2 class="text-xl font-bold">Form Errors</h2>
+  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+
+  <h5 class="font-bold">Nombre</h5>
+  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+
+  <h5 class="font-bold">Email</h5>
+  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+
+  <h5 class="font-bold">Username</h5>
+  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+
+  <h5 class="font-bold">Password</h5>
+  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+
+  <h5 class="font-bold">Confirmar</h5>
+  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+</div>

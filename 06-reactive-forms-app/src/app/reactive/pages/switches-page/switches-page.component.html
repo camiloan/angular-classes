@@ -1,1 +1,60 @@
-<p>switches-page works!</p>,
+<h2 class="text-2xl font-bold">Reactivos: Switches</h2>
+<hr class="my-4">
+
+<form autocomplete="off" class="space-y-6">
+
+    <!-- Radio -->
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Género</span>
+        </label>
+        <div class="flex flex-col gap-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="gender" value="M" class="radio" />
+                <span>Masculino</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="gender" value="F" class="radio" />
+                <span>Femenino</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Switches - Notificaciones -->
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Notificaciones</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="toggle toggle-primary" />
+            <span>Quiero recibir notificaciones</span>
+        </label>
+    </div>
+
+    <!-- Switches - Términos y Condiciones -->
+    <div class="form-control">
+        <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="checkbox checkbox-primary" />
+            <span>Términos y condiciones de uso</span>
+        </label>
+        <span class="text-red-500 text-sm mt-1">Debe de aceptar las condiciones de uso</span>
+    </div>
+
+    <!-- Botón Guardar -->
+    <div class="flex justify-end">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+
+</form>
+
+<!-- Información Adicional -->
+<div class="mt-8 space-y-4">
+    <h5 class="font-bold">Valor del formulario</h5>
+    <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+
+    <h5 class="font-bold">Persona</h5>
+    <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+
+    <h5 class="font-bold">Valid</h5>
+    <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+</div>

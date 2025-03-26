@@ -1,1 +1,23 @@
-<p>side-menu works!</p>,
+<h2 class="text-2xl font-bold">Páginas</h2>
+<hr class="my-4">
+
+<h3 class="my-3 text-xl">Reactive</h3>
+<ul class="list bg-base-300 rounded-box shadow-md">
+  @for (item of reactiveMenu; track item.title) {
+  <li [routerLink]="item.route" routerLinkActive="bg-primary" class="list-row cursor-pointer">{{item.title}}</li>
+  }
+</ul>
+
+<h3 class="my-3 text-xl">Auth</h3>
+<ul class="list bg-base-300 rounded-box shadow-md">
+  @for (item of authMenu; track item.title) {
+  <li [routerLink]="item.route" routerLinkActive="bg-primary" class="list-row cursor-pointer">{{item.title}}</li>
+  }
+</ul>
+
+<h3 class="my-3 text-xl">Países</h3>
+<ul class="list bg-base-300 rounded-box shadow-md">
+  @for (item of countryMenu; track item.title) {
+  <li [routerLink]="item.route" routerLinkActive="bg-primary" class="list-row cursor-pointer">{{item.title}}</li>
+  }
+</ul>
