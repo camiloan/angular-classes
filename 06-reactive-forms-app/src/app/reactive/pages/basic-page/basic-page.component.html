@@ -4,40 +4,51 @@
 <div class="flex flex-col">
   <div class="w-full">
 
-    <form autocomplete="off" class="space-y-6">
+    <form autocomplete="off" [formGroup]="myForm" class="space-y-6">
 
       <!-- Campo de producto -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text w-1/4">Producto</span>
-          <input type="text" class="input input-bordered w-3/4" placeholder="Nombre del producto">
+      <div class="flex flex-row">
+        <label class="flex-3/12">
+          Producto
         </label>
-        <span class="text-error text-sm mt-1">
-          <!-- Debe de ser de 3 letras -->
-          error message
-        </span>
+        <div class="flex-9/12">
+          <input type="text" class="input input-bordered w-full" placeholder="Nombre del producto"
+            formControlName="name">
+          <span class="text-error text-sm mt-1">
+            <!-- Debe de ser de 3 letras -->
+            error message
+          </span>
+        </div>
       </div>
 
       <!-- Campo de precio -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text w-1/4">Precio</span>
-          <input type="number" class="input input-bordered w-3/4" placeholder="Precio del producto">
+      <div class="flex flex-row">
+        <label class="flex-3/12">
+          Precio
         </label>
-        <span class="text-error text-sm mt-1">
-          El precio debe de ser 0 o mayor
-        </span>
+        <div class="flex-9/12">
+          <input type="number" class="input input-bordered w-full" placeholder="Precio del producto"
+            formControlName="price">
+          <span class="text-error text-sm mt-1">
+            <!-- Debe de ser de 3 letras -->
+            El precio debe de ser 0 o mayor
+          </span>
+        </div>
       </div>
 
       <!-- Campo de existencias -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text w-1/4">Existencias</span>
-          <input type="number" class="input input-bordered w-3/4" placeholder="Existencias del producto">
+      <div class="flex flex-row">
+        <label class="flex-3/12">
+          Existencias
         </label>
-        <span class="text-error text-sm mt-1">
-          Las existencias deben de ser 0 o mayor
-        </span>
+        <div class="flex-9/12">
+          <input type="number" class="input input-bordered w-full" placeholder="Existencias del producto"
+            formControlName="inStorage">
+          <span class="text-error text-sm mt-1">
+            <!-- Debe de ser de 3 letras -->
+            Las existencias deben de ser 0 o mayor
+          </span>
+        </div>
       </div>
 
       <!-- Botón -->
@@ -54,27 +65,27 @@
   <div class="w-full space-y-4">
     <div>
       <span class="font-semibold">Valid</span>
-      <pre>{{ 'objeto' | json }}</pre>
+      <pre>{{ myForm.valid | json }}</pre>
     </div>
     <div>
       <span class="font-semibold">Pristine</span>
-      <pre>{{ 'objeto' | json }}</pre>
+      <pre>{{ myForm.pristine | json }}</pre>
     </div>
     <div>
       <span class="font-semibold">Touched</span>
-      <pre>{{ 'objeto' | json }}</pre>
+      <pre>{{ myForm.touched| json }}</pre>
     </div>
     <div>
       <span class="font-semibold">Value</span>
-      <pre>{{ 'objeto' | json }}</pre>
+      <pre>{{ myForm.value | json }}</pre>
     </div>
     <div>
       <span class="font-semibold">Precio</span>
-      <pre>{{ 'objeto' | json }}</pre>
+      <pre>{{ myForm.controls.price.value| json }}</pre>
     </div>
     <div>
       <span class="font-semibold">Producto</span>
-      <pre>{{ 'objeto' | json }}</pre>
+      <pre>{{ myForm.controls.name.value| json }}</pre>
     </div>
   </div>
 </div>
