@@ -41,7 +41,7 @@
       @for (favoriteGame of favoriteGames.controls; track $index; let i=$index){
       <div class="flex w-full gap-2 mt-2">
         <input type="text" class="input input-bordered flex-grow" [formControlName]="i" />
-        <button class="btn btn-error" (click)="onDeleteFavorite(i)">Eliminar</button>
+        <button type="button" class="btn btn-error" (click)="onDeleteFavorite(i)">Eliminar</button>
       </div>
       @if (formUtils.isValidFieldInArray(favoriteGames, i)) {
       <span class="text-error text-sm">
