@@ -1,57 +1,84 @@
 <h2 class="text-2xl font-bold">Reactivos: <small class="text-base font-normal">Dinámicos</small></h2>
 <hr class="my-4">
 
-<form autocomplete="off" class="space-y-6">
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()" class="space-y-6">
 
   <!-- Nombre -->
-  <div class="form-control">
-    <label class="label">
-      <span class="label-text">Nombre</span>
+  <div class="flex flex-row">
+    <label class="flex-3/12">
+      Nombre
     </label>
-    <input type="text" placeholder="Nombre de la persona" class="input input-bordered w-full" />
-    <span class="text-red-500 text-sm mt-1">error message</span>
+    <div class="flex-9/12">
+      <input type="text" placeholder="Nombre de la persona" class="input input-bordered w-full"
+        formControlName="name" />
+      @if (formUtils.isValidField(myForm, 'name')) {
+      <span class="text-error text-sm mt-1">
+        {{formUtils.getFieldError(myForm,'name')}}
+      </span>
+      }
+    </div>
   </div>
 
   <!-- Agregar Favorito -->
-  <div class="form-control">
-    <label class="label">
-      <span class="label-text">Agregar</span>
+  <div class="flex flex-row">
+    <label class="flex-3/12">
+      Agregar
     </label>
-    <div class="flex gap-2">
-      <input type="text" placeholder="Agregar favorito" class="input input-bordered flex-grow" />
-      <button class="btn btn-primary">Agregar favorito</button>
+    <div class="flex flex-9/12 gap-2">
+      <input type="text" placeholder="Agregar favorito" class="input input-bordered flex-grow"
+        [formControl]="newFavorite" (keydown.enter)="onAddToFavorites()" (keydown.enter)="$event.preventDefault()" />
+      <button class="btn btn-primary" (click)="onAddToFavorites()" (click)="$event.preventDefault()">Agregar
+        favorito</button>
     </div>
   </div>
 
   <!-- Lista de Juegos Favoritos -->
-  <div class="form-control">
-    <label class="label">
-      <span class="label-text">Favoritos</span>
+  <div class="flex flex-row">
+    <label class="flex-3/12">
+      Favoritos
     </label>
-    <div class="space-y-2">
-      <div class="flex gap-2">
-        <input type="text" class="input input-bordered flex-grow" />
-        <button class="btn btn-error">Eliminar</button>
+    <div class="flex-9/12" formArrayName="favoriteGames">
+      @for (favoriteGame of favoriteGames.controls; track $index; let i=$index){
+      <div class="flex w-full gap-2 mt-2">
+        <input type="text" class="input input-bordered flex-grow" [formControlName]="i" />
+        <button class="btn btn-error" (click)="onDeleteFavorite(i)">Eliminar</button>
       </div>
-      <span class="text-red-500 text-sm">Este campo es requerido</span>
+      @if (formUtils.isValidFieldInArray(favoriteGames, i)) {
+      <span class="text-error text-sm">
+        {{formUtils.getFieldErrorInArray(favoriteGames,i)}}
+      </span>
+      }
+      }
+      <div class="flex pt-3">
+        @if (formUtils.isValidField(myForm, 'favoriteGames')) {
+        <span class="text-error text-sm">
+          Debe de tener al menos 2 juegos favoritos
+        </span>
+        }
+      </div>
     </div>
   </div>
 
   <!-- Botón Guardar -->
   <div class="flex justify-end">
     <button type="submit" class="btn btn-primary">Guardar</button>
+    <!-- [disabled]="myForm.invalid" -->
   </div>
-
 </form>
 
 <div class="mt-6 space-y-4">
   <span class="font-bold">Valid</span>
-  <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.valid| json }}</pre>
 
   <span class="font-bold">Value</span>
-  <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.value| json }}</pre>
+
+  <span class="font-bold">Errors</span>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['favoriteGames'].errors| json }}</pre>
 
   <span class="font-bold">Agregar Juego</span>
-  <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
-  <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['favoriteGames'].errors
+    | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['favoriteGames'].value
+   | json }}</pre>
 </div>

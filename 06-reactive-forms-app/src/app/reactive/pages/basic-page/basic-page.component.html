@@ -14,9 +14,9 @@
         <div class="flex-9/12">
           <input type="text" class="input input-bordered w-full" placeholder="Nombre del producto"
             formControlName="name">
-          @if (isValidField('name')) {
+          @if (formUtils.isValidField(myForm, 'name')) {
           <span class="text-error text-sm mt-1">
-            {{getFieldError('name')}}
+            {{formUtils.getFieldError(myForm,'name')}}
           </span>
           }
         </div>
@@ -30,9 +30,9 @@
         <div class="flex-9/12">
           <input type="number" class="input input-bordered w-full" placeholder="Precio del producto"
             formControlName="price">
-          @if (isValidField('price')) {
+          @if (formUtils.isValidField(myForm, 'price')) {
           <span class="text-error text-sm mt-1">
-            {{getFieldError('price')}}
+            {{formUtils.getFieldError(myForm,'price')}}
           </span>
           }
         </div>
@@ -46,9 +46,9 @@
         <div class="flex-9/12">
           <input type="number" class="input input-bordered w-full" placeholder="Existencias del producto"
             formControlName="inStorage">
-          @if (isValidField('inStorage')) {
+          @if (formUtils.isValidField(myForm, 'inStorage')) {
           <span class="text-error text-sm mt-1">
-            {{getFieldError('inStorage')}}
+            {{formUtils.getFieldError(myForm,'inStorage')}}
           </span>
           }
         </div>
