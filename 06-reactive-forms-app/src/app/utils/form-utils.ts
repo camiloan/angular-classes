@@ -2,7 +2,9 @@ import type { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class FormUtils {
-
+  static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+  static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
 
   static getTextError(errors: ValidationErrors) {
     for (const key of Object.keys(errors)) {
@@ -15,6 +17,16 @@ export class FormUtils {
         case 'min':
           // biome-ignore lint/complexity/useLiteralKeys: <explanation>
           return `Debe de ser mayor de ${errors['min'].min}`
+        case 'email':
+          return 'El valor ingresado no es un correo electrónico'
+        case 'pattern':
+          // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+          if (errors['pattern'].requiredPattern === FormUtils.namePattern) {
+            return 'El valor ingresado no luce como un correo electrónico'
+          }
+          return 'Error de patrón contra expresión regular'
+        default:
+          return 'Error de validación no controlado'
       }
     }
     return null

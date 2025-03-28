@@ -2,15 +2,19 @@
 <hr class="my-4">
 
 <div class="space-y-6">
-  <form autocomplete="off" class="space-y-4">
+  <form autocomplete="off" class="space-y-4" [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
     <!-- Nombre -->
     <div class="form-control">
       <label class="label">
         <span class="label-text">Nombre y apellido</span>
       </label>
-      <input type="text" placeholder="Nombre del usuario" class="input input-bordered w-full" />
-      <span class="text-red-500 text-sm mt-1">Debe de ser en formato de nombre y apellido</span>
+      <input type="text" placeholder="Nombre y apellido" class="input input-bordered w-full" formControlName="name" />
+      @if (formUtils.isValidField(myForm, 'name')) {
+      <span class="text-error text-sm mt-1">
+        El campo debe de tener nombre y apellido
+      </span>
+      }
     </div>
 
     <!-- Email -->
@@ -18,8 +22,10 @@
       <label class="label">
         <span class="label-text">Email</span>
       </label>
-      <input type="email" placeholder="Email del usuario" class="input input-bordered w-full" />
-      <span class="text-red-500 text-sm mt-1">Mensaje de error del email</span>
+      <input type="email" placeholder="Email del usuario" class="input input-bordered w-full" formControlName="email" />
+      @if (formUtils.isValidField(myForm, 'email')) {
+      <span class="text-error text-sm mt-1">{{formUtils.getFieldError(myForm,'email')}}</span>
+      }
     </div>
 
     <!-- Username -->
@@ -27,8 +33,11 @@
       <label class="label">
         <span class="label-text">Username</span>
       </label>
-      <input type="text" placeholder="Nombre código del usuario" class="input input-bordered w-full" />
-      <span class="text-red-500 text-sm mt-1">El username no puede ser Strider</span>
+      <input type="text" placeholder="Nombre código del usuario" class="input input-bordered w-full"
+        formControlName="username" />
+      @if (formUtils.isValidField(myForm, 'username')) {
+      <span class="text-error text-sm mt-1">{{formUtils.getFieldError(myForm,'username')}}</span>
+      }
     </div>
 
     <!-- Password -->
@@ -36,8 +45,11 @@
       <label class="label">
         <span class="label-text">Password</span>
       </label>
-      <input type="password" placeholder="Password de su cuenta" class="input input-bordered w-full" />
-      <span class="text-red-500 text-sm mt-1">La contraseña debe de ser mayor de 6 caracteres.</span>
+      <input type="password" placeholder="Password de su cuenta" class="input input-bordered w-full"
+        formControlName="password" />
+      @if (formUtils.isValidField(myForm, 'password')) {
+      <span class="text-error text-sm mt-1">{{formUtils.getFieldError(myForm,'password')}}</span>
+      }
     </div>
 
     <!-- Confirmar Password -->
@@ -45,8 +57,11 @@
       <label class="label">
         <span class="label-text">Confirmar</span>
       </label>
-      <input type="password" placeholder="Confirmar la contraseña" class="input input-bordered w-full" />
-      <span class="text-red-500 text-sm mt-1">Las contraseñas deben de ser iguales</span>
+      <input type="password" placeholder="Confirmar la contraseña" class="input input-bordered w-full"
+        formControlName="password2" />
+      @if (formUtils.isValidField(myForm, 'password2')) {
+      <span class="text-error text-sm mt-1">{{formUtils.getFieldError(myForm,'password2')}}</span>
+      }
     </div>
 
     <!-- Botón Crear -->
@@ -59,24 +74,26 @@
 
 <!-- Información Adicional -->
 <div class="mt-8 space-y-4">
-  <h2 class="text-xl font-bold">Form Valid:</h2>
-  <h2 class="text-xl font-bold">Form Status:</h2>
-  <h2 class="text-xl font-bold">Form Pending:</h2>
+  <h2 class="text-xl font-bold">Form Valid: {{myForm.valid}}</h2>
+  <h2 class="text-xl font-bold">Form Status: {{myForm.status}}</h2>
+  <h2 class="text-xl font-bold">Form Pending: {{myForm.pending}}</h2>
   <h2 class="text-xl font-bold">Form Errors</h2>
-  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.errors| json }}</pre>
+  <h2 class="text-xl font-bold">Value</h2>
+  <pre>{{myForm.value| json}}</pre>
 
   <h5 class="font-bold">Nombre</h5>
-  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['name'].value| json }}</pre>
 
   <h5 class="font-bold">Email</h5>
-  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['email'].value | json }}</pre>
 
   <h5 class="font-bold">Username</h5>
-  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['username'].value | json }}</pre>
 
   <h5 class="font-bold">Password</h5>
-  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['password'].value | json }}</pre>
 
   <h5 class="font-bold">Confirmar</h5>
-  <pre class="bg-base-300 p-4 rounded">{{ 'formulario' | json }}</pre>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['password2'].value | json }}</pre>
 </div>

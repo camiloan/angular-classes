@@ -1,60 +1,68 @@
 <h2 class="text-2xl font-bold">Reactivos: Switches</h2>
 <hr class="my-4">
 
-<form autocomplete="off" class="space-y-6">
+<form autocomplete="off" class="space-y-6" [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
-    <!-- Radio -->
-    <div class="form-control">
-        <label class="label">
-            <span class="label-text">Género</span>
-        </label>
-        <div class="flex flex-col gap-2">
-            <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="gender" value="M" class="radio" />
-                <span>Masculino</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="gender" value="F" class="radio" />
-                <span>Femenino</span>
-            </label>
-        </div>
+  <!-- Radio -->
+  <div class="flex flex-row">
+    <label class="flex flex-3/12">
+      Género
+    </label>
+    <div class="flex flex-9/12 flex-col gap-2">
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="radio" name="gender" value="M" class="radio" id="radioMasculino" formControlName="gender" />
+        <span>Masculino</span>
+      </label>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="radio" name="gender" value="F" class="radio" id="radioFemenino" formControlName="gender" />
+        <span>Femenino</span>
+      </label>
     </div>
+  </div>
 
-    <!-- Switches - Notificaciones -->
-    <div class="form-control">
-        <label class="label">
-            <span class="label-text">Notificaciones</span>
-        </label>
-        <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" class="toggle toggle-primary" />
-            <span>Quiero recibir notificaciones</span>
-        </label>
-    </div>
+  <!-- Switches - Notificaciones -->
+  <div class="flex flex-row">
+    <label class="flex-3/12">
+      Notificaciones
+    </label>
+    <label class="flex flex-9/12 items-center gap-2 cursor-pointer">
+      <input type="checkbox" class="toggle toggle-primary" id="flexSwitchCheckChecked"
+        formControlName="wantNotifications" />
+      <span>Quiero recibir notificaciones</span>
+    </label>
+  </div>
 
-    <!-- Switches - Términos y Condiciones -->
-    <div class="form-control">
-        <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" class="checkbox checkbox-primary" />
-            <span>Términos y condiciones de uso</span>
-        </label>
-        <span class="text-red-500 text-sm mt-1">Debe de aceptar las condiciones de uso</span>
-    </div>
+  <!-- Switches - Términos y Condiciones -->
+  <div class="flex flex-row">
+    <div class="flex-3/12"></div>
+    <label class="flex flex-col flex-9/12 gap-2 cursor-pointer" [class.text-error]="formUtils.isValidField(myForm, 'termsAndConditions')">
+      <div class="flex gap-2">
+        <input type="checkbox" class="checkbox checkbox-primary" id="flexCheckDefault"
+          formControlName="termsAndConditions" />
+        <span>Términos y condiciones de uso</span>
+      </div>
+      @if (formUtils.isValidField(myForm, 'termsAndConditions')) {
+      <span class="text-sm mt-1">
+        Debe de aceptar las condiciones de uso</span>
+      }
+    </label>
+  </div>
 
-    <!-- Botón Guardar -->
-    <div class="flex justify-end">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </div>
+  <!-- Botón Guardar -->
+  <div class="flex justify-end">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
 
 </form>
 
 <!-- Información Adicional -->
 <div class="mt-8 space-y-4">
-    <h5 class="font-bold">Valor del formulario</h5>
-    <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+  <h5 class="font-bold">Valor del formulario</h5>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.value| json }}</pre>
 
-    <h5 class="font-bold">Persona</h5>
-    <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+  <h5 class="font-bold">Persona</h5>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.controls['gender'].value| json }}</pre>
 
-    <h5 class="font-bold">Valid</h5>
-    <pre class="bg-base-300 p-4 rounded">{{ 'object' | json }}</pre>
+  <h5 class="font-bold">Valid</h5>
+  <pre class="bg-base-300 p-4 rounded">{{ myForm.valid| json }}</pre>
 </div>
