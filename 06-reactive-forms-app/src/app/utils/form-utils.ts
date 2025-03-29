@@ -1,4 +1,12 @@
-import type { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
+import type { AbstractControl, FormArray, FormGroup, ValidationErrors } from '@angular/forms';
+
+
+async function sleep() {
+  return new Promise(resolve => setTimeout(() => {
+    resolve(true)
+  }, 2500));
+
+}
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class FormUtils {
@@ -19,6 +27,11 @@ export class FormUtils {
           return `Debe de ser mayor de ${errors['min'].min}`
         case 'email':
           return 'El valor ingresado no es un correo electrónico'
+        case 'emailTaken':
+          return 'El correo electrónico ya está en uso'
+        case 'noStrider':
+          return 'El nombre no puede ser "strider"'
+
         case 'pattern':
           // biome-ignore lint/complexity/useLiteralKeys: <explanation>
           if (errors['pattern'].requiredPattern === FormUtils.namePattern) {
@@ -60,5 +73,43 @@ export class FormUtils {
     const errors = formArray.controls[index].errors ?? {}
 
     return FormUtils.getTextError(errors)
+  }
+
+  static isFieldOneEqualFieldTwo(fieldOne: string, fieldTwo: string) {
+    return (FormGroup: AbstractControl) => {
+      const field1Value = FormGroup.get(fieldOne)?.value;
+      const field2Value = FormGroup.get(fieldTwo)?.value;
+      return field1Value === field2Value ? null : {
+        passwordNotEqual: true
+      };
+
+    }
+  }
+
+
+  static async checkingServerResponse(control: AbstractControl): Promise<ValidationErrors | null> {
+    await sleep()
+
+
+    const formValue = control.value
+    if (formValue === 'hola@mundo.com') {
+      return {
+        emailTaken: true
+      }
+    }
+    return null
+  }
+
+  static notStrider(control: AbstractControl): ValidationErrors | null {
+
+    const formValue = control.value
+
+    if (formValue === 'strider') {
+      return {
+        noStrider: true
+      }
+    }
+    return null
+
   }
 }

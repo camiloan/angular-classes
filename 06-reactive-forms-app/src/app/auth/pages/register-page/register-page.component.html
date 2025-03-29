@@ -64,6 +64,12 @@
       }
     </div>
 
+    <div>
+      @if (myForm.errors && myForm.touched) {
+      <span class="text-error text-sm mt-1">Las contraseñas no coinciden</span>
+      }
+    </div>
+
     <!-- Botón Crear -->
     <div class="flex justify-end">
       <button type="submit" class="btn btn-primary">Crear</button>
