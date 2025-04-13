@@ -16,7 +16,7 @@ const baseUrl = environment.baseUrl
 export class AuthService {
   private _authStatus = signal<AuthStatus>('checking')
   private _user = signal<User | null>(null)
-  private _token = signal<string | null>(null)
+  private _token = signal<string | null>(localStorage.getItem('token'));
 
   private http = inject(HttpClient);
 
@@ -50,13 +50,17 @@ export class AuthService {
     const token = localStorage.getItem('token');
     if (!token) {
       this.logout();
-      return of(true);
+      return of(false);
     }
-    return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).pipe(
+    return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`
+    ).pipe(
+      map(resp => this.handleAuthSuccess(resp)),
+      catchError((error) => this.handleAuthError(error))
+    )
+  }
+
+  register(fullName: string, email: string, password: string): Observable<boolean> {
+    return this.http.post<AuthResponse>(`${baseUrl}/auth/register`, { fullName, email, password }).pipe(
       map(resp => this.handleAuthSuccess(resp)),
       catchError((error) => this.handleAuthError(error))
     )
@@ -70,11 +74,13 @@ export class AuthService {
   }
 
   private handleAuthSuccess({ token, user }: AuthResponse) {
-    this._user.set(user);
+     this._user.set(user);
     this._authStatus.set('authenticated');
     this._token.set(token);
+
     localStorage.setItem('token', token);
     return true;
+
   }
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>

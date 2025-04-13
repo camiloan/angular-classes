@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
 import { StoreFrontLayoutComponent } from "./layouts/store-front-layout/store-front-layout.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { GenderPageComponent } from "./pages/gender-page/gender-page.component";

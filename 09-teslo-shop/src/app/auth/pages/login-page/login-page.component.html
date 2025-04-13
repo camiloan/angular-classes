@@ -1,5 +1,5 @@
 <form class="flex flex-col gap-2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <label class="input validator">
+  <label class="input">
     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
         <rect width="20" height="16" x="2" y="4" rx="2"></rect>
@@ -8,7 +8,6 @@
     </svg>
     <input type="email" placeholder="Correo electrónico" formControlName="email" />
   </label>
-  <div class="validator-hint hidden">Enter valid email address</div>
   <label class="input validator">
     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
@@ -22,8 +21,8 @@
   </label>
   <button type="submit" class="btn btn-secondary">Login</button>
   <p class="text-base-100">
-    No tienes cuenta?
-    <a class="link link-secondary" routerLink="/auth/register">Crea una aquí</a>
+    Ya tienes cuenta?
+    <a class="link link-secondary" routerLink="/auth/login">Ingresa aquí</a>
   </p>
 </form>
 
