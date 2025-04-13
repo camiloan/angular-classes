@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import type { AuthResponse } from '@auth/interfaces/auth-response.interface';
 import type { User } from '@products/interfaces/product.interface';
-import { tap } from 'rxjs';
+import { catchError, map, type Observable, tap, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 
@@ -19,6 +20,10 @@ export class AuthService {
 
   private http = inject(HttpClient);
 
+  checkStatusResource = rxResource({
+    loader: () => this.checkStatus(),
+  })
+
   authStatus = computed<AuthStatus>(() => {
     if (this._authStatus() === 'checking') {
       return 'checking'
@@ -33,14 +38,48 @@ export class AuthService {
   user = computed(() => this._user())
   token = computed(() => this._token())
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<boolean> {
     return this.http.post<AuthResponse>(`${baseUrl}/auth/login`, { email, password }).pipe(
-      tap(resp=>{
+      tap(resp => {
         this._user.set(resp.user);
         this._authStatus.set('authenticated');
         this._token.set(resp.token);
 
         localStorage.setItem('token', resp.token);
+      }), map(() => true),
+      catchError(() => {
+        this._user.set(null);
+        this._token.set(null);
+        this._authStatus.set('not-authenticated');
+        return of(false)
+      })
+
+    )
+  }
+
+  checkStatus(): Observable<boolean> {
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return of(true);
+    }
+    return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).pipe(
+      tap(resp => {
+        this._user.set(resp.user);
+        this._authStatus.set('authenticated');
+        this._token.set(resp.token);
+        localStorage.setItem('token', resp.token);
+      }),
+      map(() => true),
+      catchError(() => {
+        this._user.set(null);
+        this._token.set(null);
+        this._authStatus.set('not-authenticated');
+        return of(false)
       })
     )
   }
