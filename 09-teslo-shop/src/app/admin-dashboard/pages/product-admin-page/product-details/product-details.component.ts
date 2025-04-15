@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, input, type OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal, type OnInit } from '@angular/core';
 import type { Product } from '@products/interfaces/product.interface';
 import { ProductCarouselComponent } from "../../../../products/components/product-carousel/product-carousel.component";
 import { FormBuilder, ReactiveFormsModule, Validators, } from '@angular/forms';
 import { FormUtils } from '@utils/form-utils';
 import { FormErrorLabelComponent } from "../../../../shared/components/form-error-label/form-error-label.component";
 import { ProductsService } from '@products/services/products.service';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'product-details',
@@ -14,21 +16,28 @@ import { ProductsService } from '@products/services/products.service';
 })
 export class ProductDetailsComponent implements OnInit {
   product = input.required<Product>();
-  productsService= inject(ProductsService);
+  router = inject(Router);
+  productsService = inject(ProductsService);
+  wasSaved = signal(false)
 
   fb = inject(FormBuilder);
 
   productForm = this.fb.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
-    slug: ['', [Validators.required, Validators.pattern(FormUtils.slugPattern)],],
-    price: [0, [Validators.required, Validators.min(0)]],
-    stock: [0, [Validators.required, Validators.min(0)]],
+    slug: [
+      '',
+      [Validators.required, Validators.pattern(FormUtils.slugPattern)],
+    ],
+    price: [0, [Validators.required, Validators.min(1)]],
+    stock: [0, [Validators.required, Validators.min(1)]],
     sizes: [['']],
     images: [[]],
     tags: [''],
-    gender: ['men', [Validators.required, Validators.pattern(/men|women|kids|unisex/)]],
-
+    gender: [
+      'men',
+      [Validators.required, Validators.pattern(/men|women|kid|unisex/)],
+    ],
   })
   sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
@@ -39,7 +48,7 @@ export class ProductDetailsComponent implements OnInit {
   setFormValue(formLike: Partial<Product>) {
     // this.productForm.reset(this.product() as any)
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    this.productForm.reset(formLike as any);
+    this.productForm.reset(this.product() as any);
     this.productForm.patchValue({ tags: formLike.tags?.join(',') });
 
   }
@@ -54,9 +63,14 @@ export class ProductDetailsComponent implements OnInit {
     this.productForm.patchValue({ sizes: currentSizes });
   }
 
-  onSubmit() {
+  async onSubmit() {
+    console.log('onSubmit');
+    console.log(this.productForm.value);
+    console.log('isValid', this.productForm.valid);
     const isValid = this.productForm.valid;
     this.productForm.markAllAsTouched();
+
+    console.log(this.productForm.errors)
     if (!isValid) {
       return;
     }
@@ -68,9 +82,18 @@ export class ProductDetailsComponent implements OnInit {
       tags: formValue.tags?.toLowerCase().split(',').map(tag => tag.trim()) ?? [],
     }
 
-    this.productsService.updateProduct(this.product().id,productLike).subscribe(
-      (product) => {
-      },
-    );
+    if (this.product().id === 'new') {
+
+      const product = await firstValueFrom(this.productsService.createProduct(productLike))
+      this.router.navigate(['/admin/products', product.id]);
+
+    } else {
+      await firstValueFrom(this.productsService.updateProduct(this.product().id, productLike))
+    }
+    this.wasSaved.set(true)
+    setTimeout(() => {
+      this.wasSaved.set(false)
+    }, 3000)
+
   }
 }

@@ -1,6 +1,14 @@
-import { type AfterViewInit, ChangeDetectionStrategy, Component, type ElementRef, input, viewChild } from '@angular/core';
+import {
+  type AfterViewInit,
+  Component,
+  type ElementRef,
+  input,
+  viewChild,
+} from '@angular/core';
+
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -10,13 +18,14 @@ import { ProductImagePipe } from '@products/pipes/product-image.pipe';
   selector: 'product-carousel',
   imports: [ProductImagePipe],
   templateUrl: './product-carousel.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     .swiper {
       width: 100%;
       height: 500px;
     }
-  `
+
+
+  `,
 })
 export class ProductCarouselComponent implements AfterViewInit {
   images = input.required<string[]>();
