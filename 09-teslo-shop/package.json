@@ -18,7 +18,7 @@
     "@angular/platform-browser-dynamic": "^19.2.6",
     "@angular/router": "^19.2.6",
     "@tailwindcss/postcss": "^4.1.4",
-    "daisyui": "^5.0.19",
+    "daisyui": "^5.0.20",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.2",
     "swiper": "^11.2.6",
