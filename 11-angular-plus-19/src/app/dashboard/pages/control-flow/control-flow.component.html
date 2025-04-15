@@ -1,0 +1,55 @@
+<app-title title="Control Flow" withShadow></app-title>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-3">
+  <div class="bg-base-300 rounded shadow p-10">
+    <h2 class="text-2xl font-bold mb-5">if: {{ showContent() }}</h2>
+    <button class="p-2 bg-primary rounded text-primary-content cursor-pointer" (click)="toggleContent()">
+      Click me!
+    </button>
+    @if (showContent()) {
+    <p>Hello World!</p>
+    }@else {
+    <p>************</p>
+    }
+  </div>
+  <div class="bg-base-300 rounded shadow p-10">
+    <h2 class="text-3xl"> {{ grade() }}</h2>
+    @switch (grade()) {
+    @case ('A') {
+    <h2 class="text-xl font-bold mb-5">Arriba de 90</h2>
+    }
+    @case ('B') {
+    <h2 class="text-xl font-bold mb-5">Arriba de 80</h2>
+    }
+    @case ('C') {
+    <h2 class="text-xl font-bold mb-5">Arriba de 70</h2>
+    }
+    @case ('D') {
+    <h2 class="text-xl font-bold mb-5">Arriba de 60</h2>
+    }
+    @default {
+    <h2 class="text-xl font-bold mb-5">Reprobado</h2>
+    }
+    }
+  </div>
+  <div class="bg-base-300 rounded shadow p-10">
+    <ul>
+      @for (framework of frameworks(); track frameworks ;
+      let i=$index, first=$first, last=$last, even=$even, odd=$odd, count=$count) {
+      <li [class]="{
+          'bg-error':even && !first && !last,
+          'bg-success':odd && !first && !last,
+          'bg-info': first || last,
+        }">{{i+1}}/{{count}} - {{ framework }}</li>
+      }
+    </ul>
+  </div>
+  <div class="bg-base-300 rounded shadow p-10">
+    <ul>
+      @for (framework of frameworks2(); track framework) {
+      <li>{{ framework }}</li>
+      }@empty {
+      <li>No hay frameworks</li>
+      }
+    </ul>
+  </div>
+</section>
