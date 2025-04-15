@@ -48,4 +48,39 @@ export class ProductsService {
       tap(resp => this.productCache.set(key, resp)));
   }
 
+
+  getProductById(id: string): Observable<Product> {
+
+    const key = `${id}`;
+    if (this.productCache.has(key)) {
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
+      return of(this.productCache.get(key)!);
+    }
+
+    return this.http.get<Product>(`${baseUrl}/products/${id}`).pipe(
+      delay(2000),
+      tap(product => this.productCache.set(key, product)));
+  }
+
+  updateProduct(id:string, productLike: Partial<Product>):Observable<Product> {
+    return this.http.patch<Product>(`${baseUrl}/products/${id}`, productLike).pipe(
+      tap((product)=>this.updateProductCache(product))
+    );
+  }
+
+  updateProductCache(product:Product){
+    const productId=product.id;
+    this.productCache.set(productId,product);
+    // biome-ignore lint/complexity/noForEach: <explanation>
+    this.productsCache.forEach(
+      (productResponse)=>{
+        productResponse.products = productResponse.products.map(
+          (currentProduct)=>
+            currentProduct.id===productId?product:currentProduct
+        )
+      }
+    )
+
+  }
+
 }

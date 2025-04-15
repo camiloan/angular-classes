@@ -10,6 +10,7 @@ import { AuthService } from '@auth/services/auth.service';
 })
 export class FrontNavbarComponent {
   authService= inject(AuthService);
+  
 
 
 

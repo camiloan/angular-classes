@@ -37,6 +37,7 @@ export class AuthService {
 
   user = computed(() => this._user())
   token = computed(() => this._token())
+  isAdmin = computed(() => this._user()?.roles.includes('admin') ?? false)
 
   login(email: string, password: string): Observable<boolean> {
     return this.http.post<AuthResponse>(`${baseUrl}/auth/login`, { email, password }).pipe(
@@ -45,8 +46,9 @@ export class AuthService {
     )
   }
 
-  checkStatus(): Observable<boolean> {
 
+  checkStatus(): Observable<boolean> {
+    //TODO: Para evitar bombardear el servidor, se sugiere cacheear el resultado de esta llamada cada cierto tiempo 1h por ejemplo
     const token = localStorage.getItem('token');
     if (!token) {
       this.logout();
@@ -74,7 +76,7 @@ export class AuthService {
   }
 
   private handleAuthSuccess({ token, user }: AuthResponse) {
-     this._user.set(user);
+    this._user.set(user);
     this._authStatus.set('authenticated');
     this._token.set(token);
 
