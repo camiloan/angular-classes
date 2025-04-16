@@ -1,1 +1,83 @@
-<p>defer-options works!</p>,
+<app-title title="Defer Options"></app-title>
+<section>
+  <h1 class="text-xl">Interacciones</h1>
+  <hr class="my-2">
+  @defer (on interaction) {
+  <app-heavy-loaders-fast cssClass="bg-accent h-20 rounded-lg p-2">
+    <span>On Interaction</span>
+  </app-heavy-loaders-fast>
+
+  }@placeholder {
+  <div class="w-full h-20 bg-primary rounded-lg p-2">
+    Click en el div!
+  </div>
+
+  }
+</section>
+<section>
+  <hr class="my-2">
+  <button #btnInteraction class="p-2 bg- bg-success animate-pulse rounded-xl my-2">Click me!</button>
+  @defer (on interaction(btnInteraction)) {
+  <app-heavy-loaders-fast cssClass="bg-accent h-20 rounded-lg p-2">
+    <span>On Interaction Button</span>
+  </app-heavy-loaders-fast>
+
+  }@placeholder {
+  <div class="w-full h-20 bg-primary rounded-lg p-2">
+    Click en el div!
+  </div>
+  }
+</section>
+<section>
+  <hr class="my-2">
+  <!-- @defer (on hover()) { -->
+  @defer (on hover()) {
+  <app-heavy-loaders-fast cssClass="bg-accent h-20 rounded-lg p-2">
+    <span>On Hover</span>
+  </app-heavy-loaders-fast>
+
+  }@placeholder {
+  <div class="w-full h-20 bg-primary rounded-lg p-2">
+    Hover en el div!
+  </div>
+  }
+</section>
+<section>
+  <hr class="my-2">
+  @defer (on immediate) {
+  <app-heavy-loaders-fast cssClass="bg-accent h-20 rounded-lg p-2">
+    <span>On immediate</span>
+  </app-heavy-loaders-fast>
+
+  }@placeholder {
+  <div class="w-full h-20 bg-primary rounded-lg p-2">
+    placeholder div
+  </div>
+  }
+</section>
+<section>
+  <hr class="my-2">
+  @defer (on timer(2000)) {
+  <app-heavy-loaders-fast cssClass="bg-secondary h-20 rounded-lg p-2">
+    <span>On Timer</span>
+  </app-heavy-loaders-fast>
+
+  }@placeholder {
+  <div class="w-full h-20 bg-primary rounded-lg p-2">
+    2 segundos
+  </div>
+  }
+</section>
+<section>
+  <hr class="my-2">
+  @defer (on hover; prefetch on idle) {
+  <app-heavy-loaders-fast cssClass="bg-secondary h-20 rounded-lg p-2">
+    <span>On hover, idle</span>
+  </app-heavy-loaders-fast>
+
+  }@placeholder {
+  <div class="w-full h-20 bg-primary rounded-lg p-2">
+    Hover Prefetch Idle
+  </div>
+  }
+</section>
