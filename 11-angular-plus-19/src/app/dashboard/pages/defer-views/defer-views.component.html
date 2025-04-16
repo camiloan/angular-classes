@@ -1,1 +1,28 @@
-<p>defer-views works!</p>,
+<section class="grid grid-cols-1 h-full ">
+  <div class="h-full overflow-auto">
+    <app-title title="Defer Views / Blocks"></app-title>
+    @defer () {
+    <app-heavy-loaders-slow cssClass="bg-primary"></app-heavy-loaders-slow>
+    }@placeholder {
+    <p class="h-[600px] w-full bg-gradient-to-r from-primary to-secondary animate-pulse">
+      Loading...
+    </p>
+    }
+    @defer (on idle) {
+    <app-heavy-loaders-slow cssClass="bg-secondary"></app-heavy-loaders-slow>
+    }@placeholder {
+    <p class="h-[600px] w-full bg-gradient-to-r from-primary to-secondary animate-pulse">
+      Loading...
+    </p>
+    }
+    @defer (on viewport) {
+    <app-heavy-loaders-slow cssClass="bg-accent"></app-heavy-loaders-slow>
+    }@placeholder {
+    <p class="h-[600px] w-full bg-gradient-to-r from-primary to-secondary animate-pulse">
+      Loading...
+    </p>
+    }
+
+
+  </div>
+</section>
